@@ -8,17 +8,21 @@
         role="button"
         aria-controls="contentIdForA11y3"
       >
-        <p class="card-header-title">{{ recipe.title }}</p>
+        <b-input v-if="isEditMode" type="text" v-model="recipe.title" class="card-header-title"></b-input>
+        <p v-else class="card-header-title">{{ recipe.title }}</p>
         <a class="card-header-icon">
           <b-icon :icon="props.open ? 'menu-down' : 'menu-up'"></b-icon>
         </a>
       </div>
       <div class="card-content">
-        <div class="content">{{ recipe.ingredients }}</div>
+        <b-input v-if="isEditMode" type="text" v-model="recipe.ingredients" class="content"></b-input>
+        <div v-else class="content">{{ recipe.ingredients }}</div>
       </div>
       <footer class="card-footer">
-        <a class="card-footer-item">Edit</a>
-        <a class="card-footer-item" @click="$emit('delete:recipe', recipe.id)">Delete</a>
+        <a v-if="isEditMode" class="card-footer-item" @click="editRecipe(recipe)">Save</a>
+        <a v-else class="card-footer-item" @click="enableEditMode(recipe)">Edit</a>
+        <a v-if="isEditMode" class="card-footer-item" @click="cancelEdit(recipe)">Cancel</a>
+        <a v-else class="card-footer-item" @click="$emit('delete:recipe', recipe.id)">Delete</a>
       </footer>
     </b-collapse>
   </section>
@@ -29,6 +33,31 @@ export default {
   name: "recipe-card",
   props: {
     recipe: { type: Object, required: true }
+  },
+  data() {
+    return {
+      cachedRecipe: {},
+      isEditMode: false
+    };
+  },
+  methods: {
+    enableEditMode(recipe) {
+      this.cachedRecipe = Object.assign({}, recipe);
+      this.isEditMode = true;
+    },
+
+    editRecipe(recipe) {
+      if (recipe.title === "" || recipe.ingredients === "") {
+        return;
+      }
+      this.$emit("edit:recipe", recipe.id, recipe);
+      this.isEditMode = false;
+    },
+
+    cancelEdit(recipe) {
+      Object.assign(recipe, this.cachedRecipe);
+      this.isEditMode = false;
+    }
   }
 };
 </script>

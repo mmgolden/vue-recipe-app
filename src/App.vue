@@ -8,7 +8,7 @@
     <main>
       <div class="container">
         <recipe-form @add:recipe="addRecipe" />
-        <recipes :recipes="recipes" @delete:recipe="deleteRecipe" />
+        <recipes :recipes="recipes" @delete:recipe="deleteRecipe" @edit:recipe="editRecipe" />
       </div>
     </main>
   </div>
@@ -52,6 +52,11 @@ export default {
     },
     deleteRecipe(id) {
       this.recipes = this.recipes.filter(recipe => recipe.id !== id);
+    },
+    editRecipe(id, updatedRecipe) {
+      this.recipes = this.recipes.map(recipe =>
+        recipe.id === id ? updatedRecipe : recipe
+      );
     }
   }
 };
