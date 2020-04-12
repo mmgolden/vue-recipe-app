@@ -16,6 +16,7 @@
           type="text"
           placeholder="Add ingredients separated by a comma"
           v-model="recipe.ingredients"
+          @keypress.native="clearStatus"
         ></b-input>
       </b-field>
       <b-message type="is-success" v-if="isSuccessful" size="is-small">Recipe successfully added</b-message>
@@ -63,24 +64,22 @@ export default {
   },
   computed: {
     invalidTitle() {
-      return this.isSubmitting && this.recipe.title === ""
-        ? "is-danger"
-        : false;
+      return this.isSubmitting && this.recipe.title === "" ? "is-danger" : "";
     },
     titleMessage() {
       return this.isSubmitting && this.recipe.title === ""
         ? "Please enter a title"
-        : false;
+        : "";
     },
     invalidIngredients() {
       return this.isSubmitting && this.recipe.ingredients === ""
         ? "is-danger"
-        : false;
+        : "";
     },
     ingredientsMessage() {
       return this.isSubmitting && this.recipe.ingredients === ""
         ? "Please enter ingredients"
-        : false;
+        : "";
     }
   }
 };
