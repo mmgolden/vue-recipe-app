@@ -1,7 +1,14 @@
 <template>
   <section id="recipes">
     <div class="container">
-      <recipe-card v-for="recipe in recipes" :key="recipe.id" :recipe="recipe" class="recipe-card" />
+      <b-message v-if="recipes.length < 1">There are no recipes. Create some!</b-message>
+      <recipe-card
+        v-for="recipe in recipes"
+        :key="recipe.id"
+        :recipe="recipe"
+        v-on="$listeners"
+        class="recipe-card"
+      />
     </div>
   </section>
 </template>

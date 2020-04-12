@@ -8,7 +8,7 @@
     <main>
       <div class="container">
         <recipe-form @add:recipe="addRecipe" />
-        <recipes :recipes="recipes" />
+        <recipes :recipes="recipes" @delete:recipe="deleteRecipe" />
       </div>
     </main>
   </div>
@@ -49,6 +49,9 @@ export default {
       const id = lastId + 1;
       const newRecipe = { ...recipe, id };
       this.recipes = [...this.recipes, newRecipe];
+    },
+    deleteRecipe(id) {
+      this.recipes = this.recipes.filter(recipe => recipe.id !== id);
     }
   }
 };
