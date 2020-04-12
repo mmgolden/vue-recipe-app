@@ -12,12 +12,12 @@
         ></b-input>
       </b-field>
       <b-field label="Ingredients" :type="invalidIngredients" :message="ingredientsMessage">
-        <b-input
-          type="text"
-          placeholder="Add ingredients separated by a comma"
+        <b-taginput
           v-model="recipe.ingredients"
+          ellipsis
+          placeholder="Add ingredient"
           @keypress.native="clearStatus"
-        ></b-input>
+        ></b-taginput>
       </b-field>
       <b-message type="is-success" v-if="isSuccessful" size="is-small">Recipe successfully added</b-message>
       <p class="control">
@@ -36,7 +36,7 @@ export default {
       isSuccessful: false,
       recipe: {
         title: "",
-        ingredients: ""
+        ingredients: []
       }
     };
   },
@@ -53,7 +53,7 @@ export default {
       this.$refs.first.focus();
       this.recipe = {
         title: "",
-        ingredients: ""
+        ingredients: []
       };
       this.isSuccessful = true;
       this.isSubmitting = false;
@@ -72,12 +72,12 @@ export default {
         : "";
     },
     invalidIngredients() {
-      return this.isSubmitting && this.recipe.ingredients === ""
+      return this.isSubmitting && this.recipe.ingredients.length < 1
         ? "is-danger"
         : "";
     },
     ingredientsMessage() {
-      return this.isSubmitting && this.recipe.ingredients === ""
+      return this.isSubmitting && this.recipe.ingredients.length < 1
         ? "Please enter ingredients"
         : "";
     }

@@ -8,15 +8,23 @@
         role="button"
         aria-controls="contentIdForA11y3"
       >
-        <b-input v-if="isEditMode" type="text" v-model="recipe.title" class="card-header-title"></b-input>
+        <b-input
+          v-if="isEditMode"
+          type="text"
+          v-model="recipe.title"
+          placeholder="Add a title"
+          class="card-header-title"
+        ></b-input>
         <p v-else class="card-header-title">{{ recipe.title }}</p>
         <a class="card-header-icon">
           <b-icon :icon="props.open ? 'menu-down' : 'menu-up'"></b-icon>
         </a>
       </div>
       <div class="card-content">
-        <b-input v-if="isEditMode" type="text" v-model="recipe.ingredients" class="content"></b-input>
-        <div v-else class="content">{{ recipe.ingredients }}</div>
+        <b-taginput v-if="isEditMode" v-model="recipe.ingredients" ellipsis class="content"></b-taginput>
+        <b-taglist v-else>
+          <b-tag v-for="ingredient in recipe.ingredients" :key="ingredient">{{ ingredient }}</b-tag>
+        </b-taglist>
       </div>
       <footer class="card-footer">
         <a v-if="isEditMode" class="card-footer-item" @click="editRecipe(recipe)">Save</a>
@@ -47,7 +55,7 @@ export default {
     },
 
     editRecipe(recipe) {
-      if (recipe.title === "" || recipe.ingredients === "") {
+      if (recipe.title === "" || recipe.ingredients.length < 1) {
         return;
       }
       this.$emit("edit:recipe", recipe.id, recipe);

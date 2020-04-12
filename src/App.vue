@@ -30,14 +30,33 @@ export default {
         {
           id: 1,
           title: "🍪 Chocolate chip cookies",
-          ingredients:
-            "butter, sugar, vanilla extract, eggs, flour, baking soda, baking powder, salt, chocolate chips"
+          ingredients: [
+            "butter",
+            "sugar",
+            "vanilla extract",
+            "eggs",
+            "flour",
+            "baking soda",
+            "baking powder",
+            "salt",
+            "chocolate chips"
+          ]
         },
         {
           id: 2,
           title: "🍌 Banana bread",
-          ingredients:
-            "flour, baking soda, salt, egg, sugar, vegetable oil, buttermilk, vanilla extract, bananas, walnuts"
+          ingredients: [
+            "flour",
+            "baking soda",
+            "salt",
+            "egg",
+            "sugar",
+            "vegetable oil",
+            "buttermilk",
+            "vanilla extract",
+            "bananas",
+            "walnuts"
+          ]
         }
       ]
     };
