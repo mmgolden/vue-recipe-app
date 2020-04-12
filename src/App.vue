@@ -7,7 +7,7 @@
     </header>
     <main>
       <div class="container">
-        <recipe-form />
+        <recipe-form @add:recipe="addRecipe" />
         <recipes :recipes="recipes" />
       </div>
     </main>
@@ -41,6 +41,15 @@ export default {
         }
       ]
     };
+  },
+  methods: {
+    addRecipe(recipe) {
+      const lastId =
+        this.recipes.length > 0 ? this.recipes[this.recipes.length - 1].id : 0;
+      const id = lastId + 1;
+      const newRecipe = { ...recipe, id };
+      this.recipes = [...this.recipes, newRecipe];
+    }
   }
 };
 </script>

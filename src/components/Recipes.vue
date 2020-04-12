@@ -1,12 +1,7 @@
 <template>
   <section id="recipes">
     <div class="container">
-      <recipe-card
-        v-for="recipe in recipes"
-        :key="recipe.id"
-        :recipe="recipe"
-        class="recipe-card"
-      />
+      <recipe-card v-for="recipe in recipes" :key="recipe.id" :recipe="recipe" class="recipe-card" />
     </div>
   </section>
 </template>
@@ -27,7 +22,7 @@ export default {
 
 <style scoped lang="scss">
 #recipes {
-  padding: 0 2rem;
+  padding: 0 2rem 3rem 2rem;
 }
 
 .recipe-card {
