@@ -11,7 +11,11 @@
           @keypress.native="clearStatus"
         ></b-input>
       </b-field>
-      <b-field label="Ingredients" :type="invalidIngredients" :message="ingredientsMessage">
+      <b-field
+        label="Ingredients"
+        :type="invalidIngredients"
+        :message="ingredientsMessage"
+      >
         <b-taginput
           v-model="recipe.ingredients"
           ellipsis
@@ -19,7 +23,9 @@
           @keypress.native="clearStatus"
         ></b-taginput>
       </b-field>
-      <b-message type="is-success" v-if="isSuccessful" size="is-small">Recipe successfully added</b-message>
+      <b-message type="is-success" v-if="isSuccessful" size="is-small"
+        >Recipe successfully added</b-message
+      >
       <p class="control">
         <button class="button is-primary">Add recipe</button>
       </p>
@@ -46,7 +52,7 @@ export default {
       this.clearStatus();
 
       if (this.invalidTitle || this.invalidIngredients) {
-        return;
+        throw new Error("Invalid title or ingredients");
       }
 
       this.$emit("add:recipe", this.recipe);
