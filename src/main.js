@@ -14,6 +14,7 @@ Sentry.init({
   dsn:
     "https://c5803bce2e6a4384aa090fca657d91d7@o526299.ingest.sentry.io/5641665",
   integrations: [new Integrations.BrowserTracing()],
+  logErrors: true,
 
   // We recommend adjusting this value in production, or using tracesSampler
   // for finer control
